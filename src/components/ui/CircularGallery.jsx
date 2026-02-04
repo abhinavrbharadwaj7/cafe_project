@@ -23,6 +23,11 @@ const CircularGallery = ({ items, onSelect }) => {
     // Large radius for panoramic look
     const RADIUS = 700;
 
+    // Reset rotation when items change
+    useEffect(() => {
+        rotation.set(0);
+    }, [items, rotation]);
+
     // Pan Handler
     const onPan = (e, info) => {
         setIsDragging(true);
@@ -32,18 +37,28 @@ const CircularGallery = ({ items, onSelect }) => {
     };
 
     const onPanEnd = (e, info) => {
-        setIsDragging(false);
-
         // Calculate Momentum
         const velocity = info.velocity.x;
         const currentRotation = rotation.get();
 
-        // Estimate landing spot based on velocity
-        const power = 0.2;
-        const estimatedEndRotation = currentRotation + (velocity * power);
+        // Single Step Logic:
+        // 1. Where are we now?
+        const currentSnapIndex = Math.round(currentRotation / ANGLE_PER_ITEM);
 
-        // Snap to nearest item face
-        const snappedRotation = Math.round(estimatedEndRotation / ANGLE_PER_ITEM) * ANGLE_PER_ITEM;
+        // 2. Where would we land with momentum?
+        const power = 0.2;
+        const projectedRotation = currentRotation + (velocity * power);
+        const projectedSnapIndex = Math.round(projectedRotation / ANGLE_PER_ITEM);
+
+        // 3. Clamp the movement to adjacent items
+        // We only allow landing on the current item OR the immediate neighbor
+        let targetIndex = projectedSnapIndex;
+        const diff = targetIndex - currentSnapIndex;
+
+        if (diff > 1) targetIndex = currentSnapIndex + 1;
+        if (diff < -1) targetIndex = currentSnapIndex - 1;
+
+        const snappedRotation = targetIndex * ANGLE_PER_ITEM;
 
         // Animate to snap point
         animate(rotation, snappedRotation, {
@@ -52,6 +67,9 @@ const CircularGallery = ({ items, onSelect }) => {
             damping: 20,
             mass: 1
         });
+
+        // Small delay to prevent click event triggering immediately after drag release
+        setTimeout(() => setIsDragging(false), 50);
     };
 
     return (

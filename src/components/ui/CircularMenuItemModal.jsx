@@ -35,7 +35,7 @@ export const CircularMenuItemModal = ({ item, isOpen, onClose, onAddToCart }) =>
 
     // Ingredients placement logic
     const ingredients = item.ingredients || [];
-    const radius = 160; // Distance from center
+    const radius = 240; // Increased distance from center
 
     return (
         <AnimatePresence>
@@ -71,7 +71,7 @@ export const CircularMenuItemModal = ({ item, isOpen, onClose, onAddToCart }) =>
                             <motion.div
                                 variants={orbitVariants}
                                 animate="animate"
-                                className="absolute inset-0 rounded-full border border-white/5 pointer-events-none"
+                                className="absolute inset-0 rounded-full pointer-events-none"
                             >
                                 {ingredients.map((ing, i) => {
                                     const angle = (i / ingredients.length) * 2 * Math.PI;
@@ -129,47 +129,50 @@ export const CircularMenuItemModal = ({ item, isOpen, onClose, onAddToCart }) =>
                             </motion.div>
                         </div>
 
-                        {/* Details Card */}
+                        {/* Details Card - LIQUID GLASS UPDATE */}
                         <motion.div
                             initial={{ y: 100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 100, opacity: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="pointer-events-auto bg-stone-900/90 backdrop-blur-xl border border-stone-800 p-8 rounded-[2rem] w-full shadow-2xl z-30 flex flex-col gap-6 text-stone-100"
+                            className="pointer-events-auto bg-stone-950/60 backdrop-blur-[40px] border border-white/10 p-8 rounded-[3rem] w-full shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] z-30 flex flex-col gap-6 text-stone-100 ring-1 ring-white/5 relative overflow-hidden"
                         >
-                            <div className="text-center">
-                                <h2 className="text-3xl font-black uppercase tracking-tight mb-2 text-white">{item.name}</h2>
-                                <p className="text-stone-400 font-light">{item.description}</p>
+                            {/* Subtle glossy sheen overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
+
+                            <div className="text-center relative z-10">
+                                <h2 className="text-4xl font-black uppercase tracking-tighter mb-2 text-white drop-shadow-xl">{item.name}</h2>
+                                <p className="text-stone-400 font-medium tracking-wide text-xs opacity-80">{item.description}</p>
                             </div>
 
-                            {/* Nutrition Stats */}
-                            <div className="grid grid-cols-4 gap-2">
-                                <NutritionPill icon={<Flame size={14} />} label="Cal" value={item.nutrition?.calories || '-'} />
-                                <NutritionPill icon={<Dumbbell size={14} />} label="Prot" value={item.nutrition?.protein || '-'} />
-                                <NutritionPill icon={<Wheat size={14} />} label="Carbs" value={item.nutrition?.carbs || '-'} />
-                                <NutritionPill icon={<Droplet size={14} />} label="Fats" value={item.nutrition?.fats || '-'} />
+                            {/* Nutrition Stats - Glass Pills */}
+                            <div className="grid grid-cols-4 gap-3 relative z-10">
+                                <NutritionPill icon={<Flame size={12} />} label="Cal" value={item.nutrition?.calories || '-'} />
+                                <NutritionPill icon={<Dumbbell size={12} />} label="Prot" value={item.nutrition?.protein || '-'} />
+                                <NutritionPill icon={<Wheat size={12} />} label="Carbs" value={item.nutrition?.carbs || '-'} />
+                                <NutritionPill icon={<Droplet size={12} />} label="Fats" value={item.nutrition?.fats || '-'} />
                             </div>
 
-                            <div className="h-px bg-stone-800 w-full" />
+                            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent w-full" />
 
                             {/* Footer Actions */}
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-between gap-4 relative z-10">
                                 {/* Price */}
-                                <div className="text-2xl font-black text-amber-500">₹{item.price * quantity}</div>
+                                <div className="text-3xl font-black text-amber-500 drop-shadow-lg tracking-tight">₹{item.price * quantity}</div>
 
                                 {/* Controls */}
-                                <div className="flex items-center gap-3">
-                                    <div className="flex items-center bg-stone-800 rounded-full p-1 border border-stone-700">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center bg-black/40 backdrop-blur-md rounded-full p-1.5 border border-white/5 shadow-inner">
                                         <button
                                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-stone-700 transition-colors text-stone-300"
+                                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-stone-300 active:scale-95"
                                         >
                                             <Minus size={16} />
                                         </button>
-                                        <span className="w-8 text-center font-bold">{quantity}</span>
+                                        <span className="w-10 text-center font-bold font-mono text-lg">{quantity}</span>
                                         <button
                                             onClick={() => setQuantity(quantity + 1)}
-                                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-stone-700 transition-colors text-white"
+                                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white active:scale-95"
                                         >
                                             <Plus size={16} />
                                         </button>
@@ -178,14 +181,14 @@ export const CircularMenuItemModal = ({ item, isOpen, onClose, onAddToCart }) =>
                                     <button
                                         onClick={handleAdd}
                                         disabled={isFlying}
-                                        className="bg-white text-black px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 relative overflow-hidden"
+                                        className="bg-white text-black px-8 py-4 rounded-full font-black uppercase tracking-widest text-[10px] hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] flex items-center gap-2 relative overflow-hidden"
                                     >
                                         <div className={`flex items-center gap-2 transition-transform duration-300 ${isFlying ? '-translate-y-12' : 'translate-y-0'}`}>
-                                            <ShoppingBag size={16} />
+                                            <ShoppingBag size={14} strokeWidth={3} />
                                             Add
                                         </div>
                                         <div className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ${isFlying ? 'translate-y-0' : 'translate-y-12'}`}>
-                                            <span className="text-emerald-600 font-black">✓</span>
+                                            <span className="text-emerald-600 font-black text-xl">✓</span>
                                         </div>
                                     </button>
                                 </div>
@@ -217,11 +220,16 @@ export const CircularMenuItemModal = ({ item, isOpen, onClose, onAddToCart }) =>
 };
 
 const NutritionPill = ({ icon, label, value }) => (
-    <div className="bg-stone-800/50 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 border border-stone-800">
-        <div className="text-stone-500 mb-1">{icon}</div>
-        <span className="text-lg font-bold leading-none">{value}</span>
-        <span className="text-[10px] text-stone-500 uppercase tracking-widest font-semibold">{label}</span>
+    <div className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-2xl p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-colors group shadow-inner">
+        <div className="text-stone-400 group-hover:text-amber-400 transition-colors">
+            {icon}
+        </div>
+        <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white leading-none mb-1">{value}</span>
+            <span className="text-[9px] uppercase tracking-widest text-stone-500 font-bold">{label}</span>
+        </div>
     </div>
 );
 
 export default CircularMenuItemModal;
+
