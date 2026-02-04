@@ -10,6 +10,7 @@ import { BlurTextFramer } from '../../components/ui/BlurText';
 import { ShinyText } from '../../components/ui/ShinyText';
 import Antigravity from '../../components/ui/Antigravity';
 import { HoverImageLinks } from '../../components/ui/HoverImageLinks';
+import StickerPeel from '../../components/ui/StickerPeel';
 import Certifications from '../../components/ui/Certifications';
 // import StickyFooter from '../../components/ui/StickyFooter'; // No longer importing directly here if we duplicate logic, but let's use the component.
 // Actually, to ensure it works perfectly without import errors, I will inline the structure or ensure the previous file creation worked. 
@@ -143,6 +144,21 @@ export default function CustomerMenu() {
                                 Explore Menu
                             </MagneticButton>
                         </div>
+                    </div>
+
+                    {/* Red Mug Sticker */}
+                    <div className="absolute top-24 right-8 md:right-24 z-30 pointer-events-auto opacity-100 hidden md:block">
+                        <StickerPeel width={120} height={120}>
+                            <div className="w-full h-full bg-[#e11d48] rounded-full flex items-center justify-center border-[3px] border-white relative overflow-hidden">
+                                {/* Subtle internal reflection */}
+                                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-black/10 to-transparent pointer-events-none" />
+
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-16 h-16 text-white drop-shadow-md transform -rotate-12 translate-y-1">
+                                    {/* Classic Mug Shape */}
+                                    <path d="M20,3H4v10c0,2.21,1.79,4,4,4h6c2.21,0,4-1.79,4-4v-3h2c1.1,0,2-0.9,2-2V5C22,3.9,21.1,3,20,3z M20,8h-2V5h2V8z M4,19h16v2H4V19z" />
+                                </svg>
+                            </div>
+                        </StickerPeel>
                     </div>
                 </div>
 
