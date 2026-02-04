@@ -23,12 +23,44 @@ export default function StickyFooter() {
 
 const Content = () => {
     return (
-        <div className="bg-[#1c1917] h-full flex flex-col justify-between py-24 px-12">
+        <div className="bg-[#1c1917] h-full flex flex-col justify-between py-24 px-12 relative overflow-hidden">
+            <Seal />
             <Section1 />
             <Section2 />
         </div>
     );
 };
+
+const Seal = () => {
+    return (
+        <motion.div
+            className="absolute top-24 right-12 md:top-24 md:right-24 w-32 h-32 md:w-48 md:h-48 rounded-full border border-stone-800 flex items-center justify-center pointer-events-none z-10"
+            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: "backOut" }}
+            viewport={{ once: true }}
+        >
+            {/* Spinning Text Ring */}
+            <div className="w-full h-full animate-[spin_10s_linear_infinite] absolute inset-0">
+                <svg className="w-full h-full" viewBox="0 0 100 100">
+                    <path id="sealPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                    <text fill="#a8a29e" className="text-[10px] uppercase font-bold tracking-[0.25em]" style={{ letterSpacing: '0.2em' }}>
+                        <textPath href="#sealPath">
+                            Official • Cafe Luxe • Est 2024 • Premium •
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+
+            {/* Center Icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 bg-stone-800 rounded-full flex items-center justify-center shadow-inner">
+                    <span className="text-xl font-black text-amber-700">CL</span>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
 const Section1 = () => {
     return (

@@ -57,7 +57,7 @@ export const ReceiptCart = ({ isOpen, onClose, cart, placeOrder, id, setSuccessO
                                     </button>
                                 </div>
                                 <h2 className="text-2xl font-black mb-1 tracking-tight">CAFE LUXE</h2>
-                                <p className="text-xs uppercase tracking-widest text-stone-500 mb-4">New York, NY</p>
+                                <p className="text-xs uppercase tracking-widest text-stone-500 mb-4">Mumbai, India</p>
 
                                 <div className="flex justify-between text-xs text-stone-500 mt-4 border-t border-dashed border-stone-300 pt-2">
                                     <span>TABLE #{id || '1'}</span>
@@ -89,7 +89,7 @@ export const ReceiptCart = ({ isOpen, onClose, cart, placeOrder, id, setSuccessO
                                                         <div className="font-bold">{item.name}</div>
                                                         {/* Optional: Add modifiers here if we had them */}
                                                     </td>
-                                                    <td className="py-3 text-right">${(item.price * item.quantity).toFixed(2)}</td>
+                                                    <td className="py-3 text-right">₹{(item.price * item.quantity).toFixed(2)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -102,15 +102,15 @@ export const ReceiptCart = ({ isOpen, onClose, cart, placeOrder, id, setSuccessO
                                 <div className="space-y-1 text-sm mb-6">
                                     <div className="flex justify-between text-stone-500">
                                         <span>Subtotal</span>
-                                        <span>${subtotal.toFixed(2)}</span>
+                                        <span>₹{subtotal.toFixed(2)}</span>
                                     </div>
                                     <div className="flex justify-between text-stone-500">
                                         <span>Tax (8%)</span>
-                                        <span>${tax.toFixed(2)}</span>
+                                        <span>₹{tax.toFixed(2)}</span>
                                     </div>
                                     <div className="flex justify-between text-xl font-bold mt-4 pt-2 border-t border-stone-900 border-dashed">
                                         <span>TOTAL</span>
-                                        <span>${total.toFixed(2)}</span>
+                                        <span>₹{total.toFixed(2)}</span>
                                     </div>
                                 </div>
 

@@ -8,8 +8,9 @@ import { ResponsiveNavbar } from '../../components/ui/ResponsiveNavbar';
 import { ChevronRight } from 'lucide-react';
 import { BlurTextFramer } from '../../components/ui/BlurText';
 import { ShinyText } from '../../components/ui/ShinyText';
-import { AuroraBackground } from '../../components/ui/AuroraBackground';
+import Antigravity from '../../components/ui/Antigravity';
 import { HoverImageLinks } from '../../components/ui/HoverImageLinks';
+import Certifications from '../../components/ui/Certifications';
 // import StickyFooter from '../../components/ui/StickyFooter'; // No longer importing directly here if we duplicate logic, but let's use the component.
 // Actually, to ensure it works perfectly without import errors, I will inline the structure or ensure the previous file creation worked. 
 // The previous file creation succeeded.
@@ -26,8 +27,20 @@ export default function CustomerMenu() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [activeCategory, setActiveCategory] = useState("all");
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [hasFallen, setHasFallen] = useState(false);
 
     useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 100 && !hasFallen) {
+                setHasFallen(true);
+            } else if (scrollY < 50 && hasFallen) {
+                setHasFallen(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
         // Initialize Lenis for smooth scrolling
         const lenis = new Lenis({
             duration: 1.2,
@@ -45,8 +58,11 @@ export default function CustomerMenu() {
         }
         requestAnimationFrame(raf);
 
-        return () => lenis.destroy();
-    }, []);
+        return () => {
+            lenis.destroy();
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }, [hasFallen]);
 
     const handleAddToCart = (item, quantity) => {
         for (let i = 0; i < quantity; i++) addToCart(item);
@@ -79,15 +95,34 @@ export default function CustomerMenu() {
             {/* Main Content Wrapper - Needs Background to Cover Sticky Footer */}
             <div className="relative z-10 bg-stone-50 shadow-[0_20px_50px_rgba(0,0,0,0.1)] mb-[800px]">
                 {/* Hero Section */}
-                <AuroraBackground className="h-screen flex items-center justify-center relative">
-                    <div className="text-center px-4 relative z-10">
+                <div className="h-screen flex items-center justify-center relative overflow-hidden bg-stone-50">
+                    <Antigravity
+                        count={300}
+                        magnetRadius={6}
+                        ringRadius={7}
+                        waveSpeed={0.4}
+                        waveAmplitude={1}
+                        particleSize={0.6}
+                        lerpSpeed={0.05}
+                        color="#6F4E37" // Coffee Color
+                        autoAnimate
+                        particleVariance={1}
+                        rotationSpeed={0}
+                        depthFactor={1}
+                        pulseSpeed={3}
+                        particleShape="capsule"
+                        fieldStrength={10}
+                        isFalling={hasFallen}
+                    />
+
+                    <div className="text-center px-4 relative z-20 pointer-events-none">
                         <div className="mb-6 flex justify-center">
-                            <span className="inline-block px-4 py-1.5 rounded-full border border-stone-400/30 bg-stone-100/50 text-stone-600 text-xs font-bold tracking-[0.2em] uppercase backdrop-blur-md">
-                                Est. 2024 &bull; New York
+                            <span className="inline-block px-4 py-1.5 rounded-full border border-stone-400/30 bg-stone-100/50 text-stone-600 text-xs font-bold tracking-[0.2em] uppercase backdrop-blur-md shadow-sm">
+                                Est. 2024 &bull; Mumbai
                             </span>
                         </div>
 
-                        <div className="text-7xl md:text-9xl font-black text-stone-900 tracking-tighter mb-4 leading-none">
+                        <div className="text-7xl md:text-[10rem] font-black text-stone-900 tracking-tighter mb-4 leading-[0.85]">
                             <BlurTextFramer text="CAFE LUXE" delay={150} />
                         </div>
 
@@ -100,16 +135,16 @@ export default function CustomerMenu() {
                             <ShinyText text="Experience the art of coffee in a space designed for clarity, comfort, and creativity." speed={4} />
                         </motion.p>
 
-                        <div className="flex justify-center">
+                        <div className="flex justify-center pointer-events-auto">
                             <MagneticButton
                                 onClick={() => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })}
-                                className="bg-stone-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 active:scale-95 transition-all shadow-xl hover:shadow-2xl"
+                                className="bg-stone-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 active:scale-95 transition-all shadow-xl hover:shadow-amber-500/20"
                             >
                                 Explore Menu
                             </MagneticButton>
                         </div>
                     </div>
-                </AuroraBackground>
+                </div>
 
                 {/* Menu Section */}
                 <main id="menu" className="max-w-7xl mx-auto px-4 md:px-6 py-24 min-h-screen bg-stone-50">
@@ -140,6 +175,9 @@ export default function CustomerMenu() {
                     />
 
                 </main>
+
+                {/* Certifications Section */}
+                <Certifications />
             </div>
 
             {/* Sticky Reveal Footer - Sits behind content */}

@@ -82,7 +82,7 @@ const Link = ({ heading, subheading, imgSrc, price, onSelect }) => {
             </div>
 
             <div className="z-10 relative flex items-center gap-4">
-                <span className="text-2xl md:text-4xl font-mono text-amber-600 font-bold">${price.toFixed(2)}</span>
+                <span className="text-2xl md:text-4xl font-mono text-amber-600 font-bold">₹{price.toFixed(2)}</span>
                 <motion.div
                     variants={{
                         initial: { x: -10, opacity: 0 },
