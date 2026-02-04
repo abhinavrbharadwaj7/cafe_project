@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCafe } from '../../context/CafeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MenuItemDrawer } from '../../components/ui/MenuItemDrawer';
+import { CircularMenuItemModal } from '../../components/ui/CircularMenuItemModal';
 import OrderSuccessModal from '../../components/ui/OrderSuccessModal';
 import { ResponsiveNavbar } from '../../components/ui/ResponsiveNavbar';
 import { ChevronRight } from 'lucide-react';
 import { BlurTextFramer } from '../../components/ui/BlurText';
 import { ShinyText } from '../../components/ui/ShinyText';
 import Antigravity from '../../components/ui/Antigravity';
-import { HoverImageLinks } from '../../components/ui/HoverImageLinks';
+import CircularGallery from '../../components/ui/CircularGallery';
 import StickerPeel from '../../components/ui/StickerPeel';
 import Certifications from '../../components/ui/Certifications';
 // import StickyFooter from '../../components/ui/StickyFooter'; // No longer importing directly here if we duplicate logic, but let's use the component.
@@ -84,7 +84,7 @@ export default function CustomerMenu() {
                 orderId={successOrderId}
             />
 
-            <MenuItemDrawer
+            <CircularMenuItemModal
                 item={selectedItem}
                 isOpen={!!selectedItem}
                 onClose={() => setSelectedItem(null)}
@@ -184,11 +184,13 @@ export default function CustomerMenu() {
                         </div>
                     </div>
 
-                    {/* Unique Hover Image Reveal List */}
-                    <HoverImageLinks
-                        items={filteredItems}
-                        onSelect={setSelectedItem}
-                    />
+                    {/* 3D Circular Menu Gallery */}
+                    <div className="w-full py-10">
+                        <CircularGallery
+                            items={filteredItems}
+                            onSelect={setSelectedItem}
+                        />
+                    </div>
 
                 </main>
 

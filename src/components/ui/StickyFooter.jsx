@@ -77,7 +77,7 @@ const Section2 = () => {
                 CAFE LUXE
             </h1>
             <p className="text-stone-500 uppercase font-mono text-sm mb-4">
-                ©2024 Design by AntiGravity
+                ©2024 Cafe Luxe
             </p>
         </div>
     );

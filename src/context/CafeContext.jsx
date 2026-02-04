@@ -7,26 +7,98 @@ const initialMenu = [
         id: 'cat_1',
         name: 'Coffee Classics',
         items: [
-            { id: '1', name: 'Espresso', price: 180, description: 'Rich and bold single shot.', image: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&q=80', available: true },
-            { id: '2', name: 'Cappuccino', price: 240, description: 'Espresso with steamed milk foam.', image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80', available: true },
-            { id: '3', name: 'Latte', price: 260, description: 'Creamy espresso with steamed milk.', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80', available: true },
-            { id: '3b', name: 'Mocha', price: 290, description: 'Espresso with chocolate and milk.', image: 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=800&q=80', available: true },
+            {
+                id: '1',
+                name: 'Espresso',
+                price: 180,
+                description: 'Rich and bold single shot.',
+                image: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&q=80',
+                available: true,
+                nutrition: { calories: 9, protein: '0.1g', carbs: '1.7g', fats: '0.2g' },
+                ingredients: ['Arabica Beans', 'Water', 'Crema']
+            },
+            {
+                id: '2',
+                name: 'Cappuccino',
+                price: 240,
+                description: 'Espresso with steamed milk foam.',
+                image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80',
+                available: true,
+                nutrition: { calories: 120, protein: '6g', carbs: '10g', fats: '6g' },
+                ingredients: ['Espresso', 'Steamed Milk', 'Milk Foam']
+            },
+            {
+                id: '3',
+                name: 'Latte',
+                price: 260,
+                description: 'Creamy espresso with steamed milk.',
+                image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80',
+                available: true,
+                nutrition: { calories: 190, protein: '13g', carbs: '18g', fats: '9g' },
+                ingredients: ['Espresso', 'Steamed Milk', 'Light Foam']
+            },
+            {
+                id: '3b',
+                name: 'Mocha',
+                price: 290,
+                description: 'Espresso with chocolate and milk.',
+                image: 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=800&q=80',
+                available: true,
+                nutrition: { calories: 290, protein: '14g', carbs: '34g', fats: '15g' },
+                ingredients: ['Espresso', 'Dark Chocolate', 'Steamed Milk', 'Whipped Cream']
+            },
         ]
     },
     {
         id: 'cat_2',
         name: 'Specialty Brews',
         items: [
-            { id: '4', name: 'Cold Brew', price: 280, description: 'Steeped for 24h, smooth finish.', image: 'https://images.unsplash.com/photo-1517701604599-bb29b5c73553?w=800&q=80', available: true },
-            { id: '5', name: 'Matcha Latte', price: 320, description: 'Premium grade matcha green tea.', image: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?w=800&q=80', available: true },
+            {
+                id: '4',
+                name: 'Cold Brew',
+                price: 280,
+                description: 'Steeped for 24h, smooth finish.',
+                image: 'https://images.unsplash.com/photo-1517701604599-bb29b5c73553?w=800&q=80',
+                available: true,
+                nutrition: { calories: 5, protein: '0g', carbs: '1g', fats: '0g' },
+                ingredients: ['Coarse Coffee Grounds', 'Cold Water', 'Time (24h)']
+            },
+            {
+                id: '5',
+                name: 'Matcha Latte',
+                price: 320,
+                description: 'Premium grade matcha green tea.',
+                image: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?w=800&q=80',
+                available: true,
+                nutrition: { calories: 240, protein: '8g', carbs: '28g', fats: '6g' },
+                ingredients: ['Ceremonial Matcha', 'Warm Water', 'Oat Milk', 'Honey']
+            },
         ]
     },
     {
         id: 'cat_3',
         name: 'Bakery & Snacks',
         items: [
-            { id: '6', name: 'Butter Croissant', price: 160, description: 'Flaky, buttery, authentic french style.', image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80', available: true },
-            { id: '7', name: 'Avocado Toast', price: 450, description: 'Sourdough toast with fresh avocado.', image: 'https://images.unsplash.com/photo-1588137372308-15f75323ca8d?w=800&q=80', available: true },
+            {
+                id: '6',
+                name: 'Croissant',
+                price: 160,
+                description: 'Flaky, buttery, authentic french.',
+                image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80',
+                available: true,
+                nutrition: { calories: 231, protein: '5g', carbs: '26g', fats: '12g' },
+                ingredients: ['Wheat Flour', 'Butter', 'Yeast', 'Sugar', 'Salt']
+            },
+            {
+                id: '7',
+                name: 'Avocado Toast',
+                price: 450,
+                description: 'Sourdough toast with fresh avocado.',
+                image: 'https://images.unsplash.com/photo-1588137372308-15f75323ca8d?w=800&q=80',
+                available: true,
+                nutrition: { calories: 350, protein: '9g', carbs: '24g', fats: '21g' },
+                ingredients: ['Sourdough Bread', 'Ripe Avocado', 'Chili Flakes', 'Lemon Juice']
+            },
         ]
     }
 ];
