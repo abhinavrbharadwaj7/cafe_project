@@ -10,7 +10,7 @@ import { BlurTextFramer } from '../../components/ui/BlurText';
 import { ShinyText } from '../../components/ui/ShinyText';
 import Antigravity from '../../components/ui/Antigravity';
 import CircularGallery from '../../components/ui/CircularGallery';
-import StickerPeel from '../../components/ui/StickerPeel';
+
 import Certifications from '../../components/ui/Certifications';
 // import StickyFooter from '../../components/ui/StickyFooter'; // No longer importing directly here if we duplicate logic, but let's use the component.
 // Actually, to ensure it works perfectly without import errors, I will inline the structure or ensure the previous file creation worked. 
@@ -116,7 +116,37 @@ export default function CustomerMenu() {
                         isFalling={hasFallen}
                     />
 
-                    <div className="text-center px-4 relative z-20 pointer-events-none">
+                    {/* Floating Hero Visual - Filling Space */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+                    >
+                        {/* Ambient Glow */}
+                        <motion.div
+                            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-[100px]"
+                        />
+
+                        {/* Central Coffee Visual */}
+                        <motion.div
+                            className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]"
+                            animate={{ y: [0, -20, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&q=80"
+                                alt="Signature Coffee"
+                                className="w-full h-full object-cover rounded-full shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] opacity-90 saturate-150"
+                            />
+                            {/* Reflection/Gloss */}
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-black/20 to-transparent mix-blend-overlay" />
+                        </motion.div>
+                    </motion.div>
+
+                    <div className="text-center px-4 relative z-20 pointer-events-none mix-blend-hard-light">
                         <div className="mb-6 flex justify-center">
                             <span className="inline-block px-4 py-1.5 rounded-full border border-stone-400/30 bg-stone-100/50 text-stone-600 text-xs font-bold tracking-[0.2em] uppercase backdrop-blur-md shadow-sm">
                                 Est. 2024 &bull; Mumbai
@@ -146,20 +176,7 @@ export default function CustomerMenu() {
                         </div>
                     </div>
 
-                    {/* Red Mug Sticker */}
-                    <div className="absolute top-24 right-8 md:right-24 z-30 pointer-events-auto opacity-100 hidden md:block">
-                        <StickerPeel width={120} height={120}>
-                            <div className="w-full h-full bg-[#e11d48] rounded-full flex items-center justify-center border-[3px] border-white relative overflow-hidden">
-                                {/* Subtle internal reflection */}
-                                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-black/10 to-transparent pointer-events-none" />
 
-                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-16 h-16 text-white drop-shadow-md transform -rotate-12 translate-y-1">
-                                    {/* Classic Mug Shape */}
-                                    <path d="M20,3H4v10c0,2.21,1.79,4,4,4h6c2.21,0,4-1.79,4-4v-3h2c1.1,0,2-0.9,2-2V5C22,3.9,21.1,3,20,3z M20,8h-2V5h2V8z M4,19h16v2H4V19z" />
-                                </svg>
-                            </div>
-                        </StickerPeel>
-                    </div>
                 </div>
 
                 {/* Menu Section */}
