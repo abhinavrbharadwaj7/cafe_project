@@ -2,6 +2,7 @@ import { useCafe } from '../../context/CafeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, ChefHat, CheckCircle, AlertCircle, RefreshCw, DollarSign, Activity } from 'lucide-react';
 import LiveTimer from '../../components/ui/LiveTimer';
+import AIChatbot from '../../components/admin/AIChatbot';
 
 export default function AdminDashboard() {
     const { orders, updateOrderStatus } = useCafe();
@@ -112,6 +113,9 @@ export default function AdminDashboard() {
                     ))}
                 </div>
             </div>
+
+            {/* AI Neural Core */}
+            <AIChatbot />
         </div>
     );
 }
