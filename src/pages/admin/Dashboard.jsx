@@ -91,8 +91,20 @@ export default function AdminDashboard() {
                                     ))}
                                 </AnimatePresence>
                                 {orders.filter(o => o.status === col.id).length === 0 && (
-                                    <div className="h-40 flex flex-col items-center justify-center text-stone-600 opacity-30">
-                                        <p className="font-mono text-sm">-- NO DATA --</p>
+                                    <div className="h-full min-h-[200px] flex flex-col items-center justify-center text-stone-700 opacity-50 relative overflow-hidden rounded-xl border border-white/5 border-dashed bg-white/2 mx-2 my-2">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/2 to-transparent -translate-y-full animate-[shimmer_2s_infinite]" />
+
+                                        <div className={`p-4 rounded-full bg-stone-900 border border-white/5 mb-3 group-hover/col:scale-110 transition-transform duration-500 ${col.color}`}>
+                                            {col.id === 'pending' && <AlertCircle size={24} className="opacity-50" />}
+                                            {col.id === 'preparing' && <ChefHat size={24} className="opacity-50" />}
+                                            {col.id === 'ready' && <CheckCircle size={24} className="opacity-50" />}
+                                        </div>
+                                        <p className="font-mono text-xs font-bold uppercase tracking-widest opacity-60">
+                                            {col.id === 'pending' && 'No Incoming Orders'}
+                                            {col.id === 'preparing' && 'Kitchen Idle'}
+                                            {col.id === 'ready' && 'All Served'}
+                                        </p>
+                                        <p className="text-[10px] text-stone-600 mt-1">System Standing By</p>
                                     </div>
                                 )}
                             </div>
@@ -119,6 +131,8 @@ function StatCard({ label, value, icon, color }) {
 }
 
 function OrderCard({ order, updateStatus, config }) {
+    const timeElapsed = Math.floor((new Date() - new Date(order.timestamp)) / 60000); // Minutes
+
     return (
         <motion.div
             layout
@@ -135,16 +149,30 @@ function OrderCard({ order, updateStatus, config }) {
             <div className={`absolute -inset-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl ${config.bg}`} />
 
             <div className="relative z-10">
-                <div className="flex justify-between items-start mb-5">
-                    <div>
-                        <span className={`font-mono text-3xl font-black tracking-tighter ${config.color}`}>#{order.id.slice(-4)}</span>
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-stone-500 bg-stone-900 px-2 py-0.5 rounded border border-white/5">Table {order.tableId}</span>
+                <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-4">
+                        {/* Animated Table Radar */}
+                        <div className="relative group/icon">
+                            <div className={`absolute inset-0 rounded-full ${config.bg} blur-md animate-pulse opacity-50`} />
+
+                            <div className="w-14 h-14 rounded-full bg-[#111] border border-white/10 flex flex-col items-center justify-center relative z-10 shadow-2xl hover:scale-110 transition-transform duration-300">
+                                {/* Spinning Radar Line */}
+                                <div className={`absolute inset-0 rounded-full border-t border-r border-transparent ${config.border} opacity-50 animate-[spin_3s_linear_infinite]`} />
+
+                                <span className="text-[8px] font-bold uppercase tracking-widest text-stone-500 mb-0.5">TABLE</span>
+                                <span className="font-black text-xl text-white font-mono leading-none">{order.tableId}</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className={`font-mono text-3xl font-black tracking-tighter ${config.color}`}>#{order.id.slice(-4)}</span>
+                            <p className="text-[10px] font-bold text-stone-600 uppercase tracking-widest mt-0.5">Order ID</p>
                         </div>
                     </div>
+
                     <div className="flex flex-col items-end">
-                        <div className={`text-xs font-mono font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 border border-white/5 text-stone-400`}>
-                            <Clock size={12} />
+                        <div className={`text-xs font-mono font-bold flex items-center gap-2 px-3 py-1.5 rounded-lg bg-stone-900 border border-white/5 text-stone-400 shadow-inner`}>
+                            <Clock size={12} className={timeElapsed > 15 ? 'text-red-500 animate-pulse' : ''} />
                             <LiveTimer timestamp={order.timestamp} />
                         </div>
                     </div>
